@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const allowCrossOrigin = require("./middleware/allowCrossOrigin");
 const logger = require("./middleware/logger");
 
 const app = express();
@@ -23,14 +24,9 @@ mongoose.connect(
 const pokemonRoute = require("./routes/caughtPokemon");
 const authRoute = require("./routes/auth");
 
-app.use(cors());
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header("Access-Control-Expose-Headers", "auth-token");
-  next();
-});
 app.use(logger);
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(allowCrossOrigin);
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
