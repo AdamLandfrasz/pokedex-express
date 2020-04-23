@@ -1,9 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const dotenv = require("dotenv");
 const cors = require("cors");
 const logger = require("./middleware/logger");
-const dotenv = require("dotenv");
 
 const app = express();
 
@@ -20,11 +21,21 @@ mongoose.connect(
 );
 
 const pokemonRoute = require("./routes/caughtPokemon");
+const authRoute = require("./routes/auth");
 
-app.use(logger);
 app.use(cors());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Expose-Headers", "auth-token");
+  next();
+});
+app.use(logger);
+app.use(cookieParser());
 app.use(bodyParser.json());
-app.use("/pokedex/api", pokemonRoute);
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/pokedex/api/caught-pokemon", pokemonRoute);
+app.use("/pokedex/api/auth", authRoute);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
