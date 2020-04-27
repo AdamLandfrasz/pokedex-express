@@ -30,7 +30,6 @@ app.use(
   cors({
     credentials: true,
     origin: "https://pokedex-master.netlify.app",
-    // methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
   })
 );
 app.use(cookieParser());
