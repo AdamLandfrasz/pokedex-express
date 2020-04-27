@@ -2,8 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const dotenv = require("dotenv");
 const cors = require("cors");
+const dotenv = require("dotenv");
 const moment = require("moment");
 const logger = require("./middleware/logger");
 
@@ -30,8 +30,7 @@ app.use(
   cors({
     credentials: true,
     origin: "https://pokedex-master.netlify.app",
-    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
-    maxAge: 86400,
+    // methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
   })
 );
 app.use(cookieParser());
