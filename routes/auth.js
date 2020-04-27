@@ -33,8 +33,6 @@ router.post("/login", async (req, res) => {
       res
         .cookie("auth-token", token, {
           httpOnly: true,
-          sameSite: "none",
-          secure: true,
         })
         .json({ message: "OK", success: match, username: user.name });
     } else {
