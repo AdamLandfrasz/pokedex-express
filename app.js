@@ -25,8 +25,12 @@ mongoose.connect(
 const pokemonRoute = require("./routes/caughtPokemon");
 const authRoute = require("./routes/auth");
 
+app.options("*", cors());
 // app.use(allowCrossOrigin);
 app.use(logger);
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
     credentials: true,
@@ -35,9 +39,6 @@ app.use(
     maxAge: 86400,
   })
 );
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/pokedex/api/caught-pokemon", pokemonRoute);
 app.use("/pokedex/api/auth", authRoute);
 
