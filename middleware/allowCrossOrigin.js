@@ -1,5 +1,5 @@
 const allowCrossOrigin = (req, res, next) => {
-  console.log(req.headers());
+  console.log(req.getHeaders());
 
   res.header(
     "Access-Control-Allow-Origin",
