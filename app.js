@@ -27,7 +27,7 @@ const authRoute = require("./routes/auth");
 
 app.use(logger);
 app.use(
-  cors({ credentials: true, origin: "https://pokedex-master.netlify.app/" })
+  cors({ credentials: true, origin: "https://pokedex-master.netlify.app" })
 );
 app.use(allowCrossOrigin);
 app.use(cookieParser());
