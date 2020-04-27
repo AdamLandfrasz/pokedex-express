@@ -23,25 +23,17 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  // const token = jwt.sign({ name: "adam" }, process.env.SECRET);
-  // return res
-  //   .cookie("auth-token", token, {
-  //     httpOnly: true,
-  //     sameSite: "none",
-  //     secure: true,
-  //   })
-  //   .json({ message: "OK", success: true, username: "adam" });
   try {
-    console.log("before db search");
-
     const user = await User.findOne({ name: req.body.username });
-    console.log("after db search");
-
     const match = await bcrypt.compare(req.body.password, user.password);
     if (match) {
       const token = jwt.sign({ user }, process.env.SECRET);
       res
-        .cookie("auth-token", token, { httpOnly: true })
+        .cookie("auth-token", token, {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+        })
         .json({ message: "OK", success: match, username: user.name });
     } else {
       res

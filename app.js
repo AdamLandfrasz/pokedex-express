@@ -2,14 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const dotenv = require("dotenv");
 const cors = require("cors");
+const dotenv = require("dotenv");
 const moment = require("moment");
 const logger = require("./middleware/logger");
 
 const app = express();
 
 dotenv.config();
+
 mongoose.connect(
   process.env.DB_CONNECTION,
   {
@@ -29,8 +30,6 @@ app.use(
   cors({
     credentials: true,
     origin: "http://localhost:3000",
-    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
-    maxAge: 86400,
   })
 );
 app.use(cookieParser());
