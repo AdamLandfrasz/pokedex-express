@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const withAuth = (req, res, next) => {
+  console.log(req.cookies);
+
   const token = req.cookies["auth-token"];
   if (!token) return res.send("Access Denied");
 
