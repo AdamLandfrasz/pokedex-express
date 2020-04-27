@@ -32,6 +32,7 @@ app.use(
     credentials: true,
     origin: "https://pokedex-master.netlify.app",
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
+    maxAge: 86400,
   })
 );
 app.use(cookieParser());
