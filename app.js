@@ -26,7 +26,8 @@ const pokemonRoute = require("./routes/caughtPokemon");
 const authRoute = require("./routes/auth");
 
 app.use(logger);
-app.use(
+app.options(
+  "*",
   cors({ credentials: true, origin: "https://pokedex-master.netlify.app" })
 );
 app.use(allowCrossOrigin);
