@@ -32,7 +32,11 @@ router.post("/login", async (req, res) => {
   //   })
   //   .json({ message: "OK", success: true, username: "adam" });
   try {
+    console.log("before db search");
+
     const user = await User.findOne({ name: req.body.username });
+    console.log("after db search");
+
     const match = await bcrypt.compare(req.body.password, user.password);
     if (match) {
       const token = jwt.sign({ user }, process.env.SECRET);
