@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const moment = require("moment");
 const allowCrossOrigin = require("./middleware/allowCrossOrigin");
 const logger = require("./middleware/logger");
 
@@ -17,7 +18,7 @@ mongoose.connect(
     useUnifiedTopology: true,
   },
   () => {
-    console.log(`mongoDB connected at ${process.env.DB_CONNECTION}`);
+    console.log(`MongoDB connected successfully | ${moment().format("L LTS")}`);
   }
 );
 
@@ -34,4 +35,6 @@ app.use("/pokedex/api/caught-pokemon", pokemonRoute);
 app.use("/pokedex/api/auth", authRoute);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`Server started on port ${PORT} | ${moment().format("L LTS")}`)
+);
