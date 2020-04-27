@@ -23,7 +23,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const token = jwt.sign("test", process.env.SECRET);
+  const token = jwt.sign("test", "process.env.SECRET");
   return res
     .cookie("auth-token", token, { httpOnly: true })
     .json({ message: "OK", success: true, username: "test" });
