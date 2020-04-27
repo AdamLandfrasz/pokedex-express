@@ -5,7 +5,6 @@ const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const moment = require("moment");
-const allowCrossOrigin = require("./middleware/allowCrossOrigin");
 const logger = require("./middleware/logger");
 
 const app = express();
@@ -25,20 +24,18 @@ mongoose.connect(
 const pokemonRoute = require("./routes/caughtPokemon");
 const authRoute = require("./routes/auth");
 
-app.options("*", cors());
-// app.use(allowCrossOrigin);
 app.use(logger);
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
     credentials: true,
-    origin: "https://pokedex-master.netlify.app",
+    origin: true,
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
     maxAge: 86400,
   })
 );
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/pokedex/api/caught-pokemon", pokemonRoute);
 app.use("/pokedex/api/auth", authRoute);
 
