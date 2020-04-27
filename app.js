@@ -25,16 +25,17 @@ mongoose.connect(
 const pokemonRoute = require("./routes/caughtPokemon");
 const authRoute = require("./routes/auth");
 
-app.use(allowCrossOrigin);
-// app.use(
-//   cors({ credentials: true, origin: "https://pokedex-master.netlify.app" })
-// );
+// app.use(allowCrossOrigin);
+app.options(
+  "*",
+  cors({ credentials: true, origin: "https://pokedex-master.netlify.app" })
+);
 app.use(logger);
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/pokedex/api/caught-pokemon", pokemonRoute);
-app.use("/pokedex/api/auth", authRoute);
+app.use("/pokedex/api/caught-pokemon", cors(), pokemonRoute);
+app.use("/pokedex/api/auth", cors(), authRoute);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
