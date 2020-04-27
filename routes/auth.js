@@ -23,6 +23,8 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
+  console.log(req.cookies);
+
   try {
     const user = await User.findOne({ name: req.body.username });
     const match = await bcrypt.compare(req.body.password, user.password);
