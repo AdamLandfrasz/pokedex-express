@@ -25,13 +25,15 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ name: req.body.username });
-    console.log(req.body);
-    console.log("user: " + user);
     const match = await bcrypt.compare(req.body.password, user.password);
     if (match) {
       const token = jwt.sign({ user }, process.env.SECRET);
       res
-        .cookie("auth-token", token, { httpOnly: true })
+        .cookie("auth-token", token, {
+          httpOnly: true,
+          sameSite: "none",
+          secure: true,
+        })
         .json({ message: "OK", success: match, username: user.name });
     } else {
       res
