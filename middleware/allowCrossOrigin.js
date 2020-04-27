@@ -8,7 +8,7 @@ const allowCrossOrigin = (req, res, next) => {
     "Access-Control-Allow-Headers",
     "origin, X-Requested-With, Content-Type, Accept"
   );
-  res.header("Exposer-Headers", "Access-Control-Allow-Origin");
+  res.header("Access-Control-Expose-Headers", "Access-Control-Allow-Origin");
   next();
 };
 
