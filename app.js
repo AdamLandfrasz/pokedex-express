@@ -28,7 +28,7 @@ app.use(logger);
 app.use(
   cors({
     credentials: true,
-    origin: true,
+    origin: "https://pokedex-master.netlify.app",
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
     maxAge: 86400,
   })
