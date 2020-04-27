@@ -23,14 +23,14 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const token = jwt.sign({ name: "adam" }, "process.env.SECRET");
-  return res
-    .cookie("auth-token", token, {
-      httpOnly: true,
-      sameSite: "none",
-      secure: true,
-    })
-    .json({ message: "OK", success: true, username: "adam" });
+  // const token = jwt.sign({ name: "adam" }, process.env.SECRET);
+  // return res
+  //   .cookie("auth-token", token, {
+  //     httpOnly: true,
+  //     sameSite: "none",
+  //     secure: true,
+  //   })
+  //   .json({ message: "OK", success: true, username: "adam" });
   try {
     const user = await User.findOne({ name: req.body.username });
     const match = await bcrypt.compare(req.body.password, user.password);
