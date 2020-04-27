@@ -1,6 +1,4 @@
 const allowCrossOrigin = (req, res, next) => {
-  console.log(req.getHeaders());
-
   res.header(
     "Access-Control-Allow-Origin",
     "https://pokedex-master.netlify.app"

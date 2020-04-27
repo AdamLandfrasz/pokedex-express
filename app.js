@@ -26,15 +26,18 @@ const pokemonRoute = require("./routes/caughtPokemon");
 const authRoute = require("./routes/auth");
 
 // app.use(allowCrossOrigin);
+app.use(logger);
 app.use(
   cors({
     credentials: true,
     origin: "https://pokedex-master.netlify.app",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS",
-    preflightContinue: true,
   })
 );
-app.use(logger);
+app.use((req, res, next) => {
+  res.header("Access-Control-Expose-Headers", "Access-Control-Allow-Origin");
+  next();
+});
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
