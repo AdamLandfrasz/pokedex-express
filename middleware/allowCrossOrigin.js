@@ -8,9 +8,12 @@ const allowCrossOrigin = (req, res, next) => {
   res.header("Access-Control-Allow-Credentials", true);
   res.header(
     "Access-Control-Allow-Headers",
-    "origin, X-Requested-With, Content-Type, Accept"
+    "origin, X-Requested-With, Content-Type, Accept, X-PINGOTHER"
   );
-  res.header("Access-Control-Expose-Headers", "Access-Control-Allow-Origin");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "POST, GET, OPTIONS, PUT, PATCH, DELETE"
+  );
   next();
 };
 
