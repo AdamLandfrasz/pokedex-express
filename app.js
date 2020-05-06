@@ -29,7 +29,7 @@ app.use(logger);
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:3000",
+    origin: "https://pokedex-master.netlify.app",
   })
 );
 app.use(cookieParser());
