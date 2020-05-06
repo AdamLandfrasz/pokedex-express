@@ -41,9 +41,13 @@ router.post("/login", async (req, res) => {
         })
         .json({ message: "OK", success: match, username: user.name });
     } else {
+      console.log("no-match");
+
       res.json({ message: "Invalid username or password!" });
     }
   } catch (err) {
+    console.log("error");
+
     res.json({ message: "Invalid username or password!" });
   }
 });
