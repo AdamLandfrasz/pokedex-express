@@ -9,16 +9,21 @@ dotenv.config();
 
 router.post("/register", async (req, res) => {
   try {
-    const hash = await bcrypt.hash(req.body.password, 10);
-    const newUser = new User({
-      name: req.body.username,
-      password: hash,
-      pokemonCaught: [],
-    });
-    const savedUser = await newUser.save();
-    res.json({ savedUser, success: true });
+    const user = await User.findOne({ name: req.body.username });
+    if (user) {
+      res.json({ message: "This username is already in use!", success: false });
+    } else {
+      const hash = await bcrypt.hash(req.body.password, 10);
+      const newUser = new User({
+        name: req.body.username,
+        password: hash,
+        pokemonCaught: [],
+      });
+      const savedUser = await newUser.save();
+      res.json({ savedUser, message: "OK", success: true });
+    }
   } catch (err) {
-    res.json({ msg: err.toString() });
+    res.json({ message: err.toString() });
   }
 });
 
@@ -31,13 +36,10 @@ router.post("/login", async (req, res) => {
       res
         .cookie("auth-token", token, {
           httpOnly: true,
-          sameSite: "none",
         })
         .json({ message: "OK", success: match, username: user.name });
     } else {
-      res
-        .status(401)
-        .json({ message: "FAILED", success: match, username: user.name });
+      res.json({ message: "Invalid username or password!" });
     }
   } catch (err) {
     res.json({ message: "Invalid username or password!" });
